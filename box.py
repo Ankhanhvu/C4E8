@@ -1,7 +1,7 @@
 class Box:
     def __init__(self,x,y):
-        self.box.x = x
-        self.box.y = y
+        self.x = x
+        self.y = y
         self.text = "B "
 
     def print(self):
