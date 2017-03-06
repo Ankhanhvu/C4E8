@@ -16,34 +16,32 @@ class Map:
             for x in range (self.width):
                 if self.player.match(x,y):
                     print(self.player.text, end = "")
-                if self.box.match(x,y):
+                elif self.box.match(x,y):
                     print(self.box.text, end = "")
-                if self.gate.match(x,y):
+                elif self.gate.match(x,y):
                     print(self.gate.text, end = "")
                 else:
                     print("- ", end = "")
             print()
 
-    def in_map(self,x,y ):
+    def in_map(self,x,y):
         if x < 0 or y < 0 or x > self.width - 1 or y > self.height - 1:
             return False
         return True
 
     def move_player(self,dx,dy):
         self.player.nextx = self.player.x + dx
-        self.player.nexty = self.player.x + dy
+        self.player.nexty = self.player.y + dy
         self.box.nextx = self.box.x + dx
         self.box.nexty = self.box.y + dy
         if self.in_map(self.player.nextx,self.player.nexty):
             if self.player.match(self.box.x,self.box.y) and self.in_map(self.box.nextx, self.box.nexty):
-                # self.player.move_to(self.player.nextx,self.player.nexty)
-                # self.box.move_to(self.box.nextx,self.box.nexty)
-                self.box.x = self.box.nextx
-                self.box.y = self.box.nexty
-                self.player.x = self.player.nextx
-                self.player.y = self.player.nexty
-            elif self.player.match(self.box.x,self.box.y):
+                self.box.move_to(self.box.nextx, self.box.nexty)
+                self.player.move_to(self.player.nextx,self.player.nexty)
+
+            elif self.player.match(self.box.x,self.box.y) :
                 print("try again")
+
             else:
                 self.player.move_to(self.player.nextx, self.player.nexty)
         else:
@@ -55,13 +53,13 @@ class Map:
         dy = 0
 
         if direction == "w":
-            dx, dy = 0, -1
+            dy = -1
         elif direction == "s":
-            dx,dy = 0,1
+            dy = 1
         elif direction == "a":
-            dx,dy = -1, 0
+            dx = -1
         elif direction == "d":
-            dx,dy = 1, 0
+            dx = 1
 
         self.move_player(dx,dy)
 
